@@ -9,6 +9,29 @@ body {
   height: 100vh;
 }
 
+@media (max-width: 600px) {
+  #gameTitle {
+    font-size: 36px;
+    margin-top: 10px;
+  }
+
+  .difficulty {
+    font-size: 18px;
+    padding: 8px 16px;
+  }
+
+  #startBtn {
+    font-size: 20px;
+    padding: 10px 24px;
+    margin-bottom: 20px;
+  }
+
+  #startScreen {
+    padding: 20px 0; /* 上下の余白を減らす */
+    background-image: url("/background/start_bg_vertical.png");
+  }
+}
+
 #startScreen {
   display: flex;
   flex-direction: column;
@@ -18,7 +41,7 @@ body {
   height: 100vh;
 
   background-image: url("/background/start_bg.png");
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-color: #f7faff;

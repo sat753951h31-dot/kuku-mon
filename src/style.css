@@ -1,4 +1,15 @@
 /* 全画面共通：スマホ基準 */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* 横スクロールを完全に封印 */
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -250,18 +261,19 @@ button {
   width: 100%;
   max-width: 320px;
   margin: 10px auto 0;
+  padding: 0 4px;
 }
 
 #keypad .row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 #keypad .key {
   flex: 1;                 
-  height:60px;
+  height:55px;
   margin: 4px;
   font-size: 24px;        
   border-radius: 12px;
@@ -269,10 +281,12 @@ button {
   background: #ffffff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 #keypad .key:active {
   transform: scale(0.9);
+  filter: brightness(0.9);
 }
 
 #keypad .enter {
@@ -366,6 +380,7 @@ button {
   background-color: #ff7f50;
   color: white;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 /* リザルト画面のモンスター一覧 */

@@ -7,6 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
 }
 
 @media (max-width: 600px) {
@@ -30,15 +31,27 @@ body {
     padding: 20px 0; /* 上下の余白を減らす */
     background-image: url("/background/start_bg_vertical.png");
   }
+
+  #gameUI {
+    max-width: 100%;   /* ← 画面いっぱいに広げる */
+    padding: 10px;     /* ← 余白を少し減らす */
+  }
+
+  #gameScreen,
+  #resultScreen {
+    width: 100vw;
+    height: 100dvh;    /* ← スマホの実表示領域にフィット */
+    overflow: hidden;  /* ← スクロールバー防止 */
+  }
 }
 
 #startScreen {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* タイトル上・ボタン下 */
+  justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
 
   background-image: url("/background/start_bg.png");
   background-size: cover;

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/src/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <title>九九モン</title>
+</head>
+<body>
+<div id="startScreen">
+  <h1 id="gameTitle">九九モン</h1>
+
+  <div id="difficultySelect">
+    <button class="difficulty" data-mode="easy">やさしい</button>
+    <button class="difficulty" data-mode="normal">ふつう</button>
+    <button class="difficulty" data-mode="hard">むずかしい</button>
+  </div>
+
+  <button id="startBtn">スタート</button>
+</div>
+
+
+<div id="gameScreen" style="display:none;">
+  <div id="gameUI">
+    <div id="timer" style="margin-top: 10px;"></div>
+    <div id="hpBarContainer">
+      <div id="hpBar"></div>
+    </div>
+    <div id="score" style="margin-top: 10px;"></div>
+    <div id="monsterWithBubble">
+      <img id="monsterImg" src="/monsters/monster_lv1.png" />
+
+      <div id="speechBubble">
+        <div id="questionText"></div>
+      </div>
+    </div>
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <input id="answerInput" type="number" placeholder="答えを入力" />
+    <div id="keypad">
+      <div class="row">
+        <button class="key">1</button>
+        <button class="key">2</button>
+        <button class="key">3</button>
+      </div>
+      <div class="row">
+        <button class="key">4</button>
+        <button class="key">5</button>
+        <button class="key">6</button>
+      </div>
+      <div class="row">
+        <button class="key">7</button>
+        <button class="key">8</button>
+        <button class="key">9</button>
+      </div>
+      <div class="row">
+        <button class="key del">←</button>
+        <button class="key">0</button>
+        <button class="key enter">OK</button>
+      </div>
+    </div>
+  </div>
+  <div id="rareEffect" style="
+    display:none;
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#fff;
+    padding:10px 20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px #00000030;
+    font-size:20px;
+    font-weight:bold;
+    z-index:999;
+  "></div>
+
+</div>
+<div id="resultScreen" style="display:none;">
+  <h2 id="resultTitle">結果</h2>
+  <p id="resultDetail"></p>
+  <div id="resultMonsterList" class="result-monster-list"></div>
+
+  <button id="retryBtn">もう一度プレイ</button>
+  <button id="backToTitleBtn">タイトルへ戻る</button>
+</div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -128,10 +128,17 @@ function submitAnswer() {
         endGame(true); // ★全モンスター討伐
         return;
       }
-      resultEl.textContent = "🎉 敵を倒した！レベルアップ！";
-      updateMonsterImage(); // ★次のモンスターを読み込む
-      renderStatus();
+      // ここでHPを初期化
+      Logic.state.monsterHp = 30 + (Logic.state.level - 1) * 10;
+
+      // HPバーを更新
       renderHpBar();
+
+      // 次のモンスター画像を読み込む
+      updateMonsterImage();
+
+      resultEl.textContent = "🎉 敵を倒した！レベルアップ！";
+      renderStatus();
     }
 
   } else {
@@ -173,10 +180,6 @@ function updateMonsterImage() {
   img.src = selectedImage;
   
   Logic.state.currentMonsterImage = selectedImage;
-
-  // HP設定はそのまま
-  Logic.state.monsterHp = 30 + (Logic.state.level - 1) * 10;
-  renderHpBar();
 
   // レア出現時の演出
   if (variantIndex >= 2) {

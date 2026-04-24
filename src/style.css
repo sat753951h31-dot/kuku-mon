@@ -42,11 +42,13 @@ button {
   color: #ff7f50;
   text-shadow: 3px 3px 0 #fff, 5px 5px 0 #ffb6a1;
   margin: 0;
+  margin-bottom: 100px;
 }
 
 #difficultySelect {
   display: flex;
   gap: 16px;
+  margin-bottom: 20px;
 }
 
 .difficulty {
@@ -241,21 +243,24 @@ button {
 }
 
 #keypad {
-  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto 0;
 }
 
 #keypad .row {
   display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 12px;
 }
 
 #keypad .key {
-  width: 70px;
-  height: 70px;
-  margin: 5px;
-  font-size: 28px;
-  border-radius: 15px;
+  flex: 1;                 
+  aspect-ratio: 1 / 1;     
+  margin: 4px;
+  font-size: 32px;        
+  border-radius: 16px;
   border: none;
   background: #ffffff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -334,7 +339,8 @@ button {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-
+  margin-bottom: 20px;
+  
   max-width: 90%;
 }
 
@@ -365,6 +371,7 @@ button {
   justify-content: center;
   gap: 16px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* 1体分のカード */

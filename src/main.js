@@ -107,7 +107,7 @@ function submitAnswer() {
   const isCorrect = Logic.checkAnswer(currentQuestion, value);
 
   if (isCorrect) {
-    let damage = 100; // デフォルト（ふつう）debug中は１００にする
+    let damage = 10; // デフォルト（ふつう）debug中は１００にする
 
     if (difficulty === "easy") damage = 15;
     if (difficulty === "hard") damage = 5;

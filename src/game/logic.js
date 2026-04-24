@@ -3,7 +3,7 @@ export const state = {
   monsterHp: 30,
   defeatedCount: 0,  // ★討伐数
   defeatedSummary: {},
-  totalMonsters: 6,  // ★全体数
+  totalMonsters: 3,  // ★全体数
 };
 
 export function generateQuestion() {

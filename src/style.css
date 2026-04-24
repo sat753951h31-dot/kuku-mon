@@ -5,7 +5,16 @@ body {
   font-family: "Noto Sans JP", sans-serif;
   height: 100dvh;
   overflow: hidden;
-  background: #f7faff;
+  background: #8fd3f4;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
 }
 
 /* ------------------------------
@@ -16,7 +25,7 @@ body {
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   background-image: url("/background/start_bg.png");
@@ -98,6 +107,53 @@ body {
   align-items: center;
 }
 
+/* 入力欄 */
+#answerInput {
+  width: 80%;
+  padding: 10px;
+  font-size: 24px;
+  border-radius: 10px;
+  border: 2px solid #aaa;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* ------------------------------
+   GAME SCREEN エフェクト
+------------------------------ */
+.easy { color: #2ecc71; }
+.normal { color: #3498db; }
+.hard { color: #e74c3c; }
+
+/* レア演出のポップアップ */
+#rareEffect {
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px #00000030;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 999;
+  animation: rarePop 0.3s ease-out;
+}
+
+/* フェード＋ポップアニメーション */
+@keyframes rarePop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -10px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
 /* モンスター＋吹き出し */
 #monsterWithBubble {
   display: flex;
@@ -128,17 +184,126 @@ body {
   border-color: transparent #ffffff transparent transparent;
 }
 
-/* 入力欄 */
-#answerInput {
-  width: 80%;
-  padding: 10px;
-  font-size: 24px;
-  border-radius: 10px;
-  border: 2px solid #aaa;
+/* アニメーション */
+.pop {
+  animation: pop 0.25s ease-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  80% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* 正解・不正解で色変更 */
+.correctBubble {
+  background: #d4f8d4;
+}
+
+.wrongBubble {
+  background: #ffd4d4;
+}
+
+#answerBtn {
+  background: #4caf50;
+  color: white;
+}
+
+#result {
+  font-size: 28px;
+  font-weight: bold;
+  height: 40px;
+  margin-top: 10px;
   text-align: center;
+}
+
+.correct {
+  color: #28a745;
+  animation: pop 0.2s ease-out;
+}
+
+.wrong {
+  color: #dc3545;
+  animation: shake 0.3s ease-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+#score, #timer {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+#keypad {
+  margin-top: 20px;
+}
+
+#keypad .row {
+  display: flex;
+  justify-content: center;
   margin-bottom: 10px;
 }
 
+#keypad .key {
+  width: 70px;
+  height: 70px;
+  margin: 5px;
+  font-size: 28px;
+  border-radius: 15px;
+  border: none;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+#keypad .key:active {
+  transform: scale(0.9);
+}
+
+#keypad .enter {
+  background: #4caf50;
+  color: white;
+}
+
+#keypad .del {
+  background: #ff6666;
+  color: white;
+}
+
+#hpBarContainer {
+  width: 100%;
+  height: 20px;
+  background: #ddd;
+  border-radius: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+#hpBar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #ff6666, #ff0000);
+  transition: width 0.3s ease;
+}
+
+#monsterCanvas {
+  width: 300px;
+  height: 300px;
+  display: block;
+  margin: 0 auto;
+}
+
+#monsterImg {
+  width: 150px;
+  display: block;
+  margin: 0 auto;
+}
 /* ------------------------------
    RESULT SCREEN
 ------------------------------ */
@@ -156,23 +321,88 @@ body {
   background-position: center;
 }
 
+/* リザルト画面のボード */
+#resultBoard {
+  border: 3px solid #fff;
+  background: rgba(255, 250, 240, 0.9); /* クリーム色 */
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  max-width: 90%;
+}
+
 #resultTitle {
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-#resultList {
+#resultDetail {
   font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
 }
 
-#restartBtn {
-  font-size: 22px;
-  padding: 12px 28px;
-  border-radius: 12px;
-  background: #ff7f50;
-  color: white;
+#retryBtn, #backToTitleBtn {
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 10px;
   border: none;
+  background-color: #ff7f50;
+  color: white;
+  cursor: pointer;
+}
+
+/* リザルト画面のモンスター一覧 */
+.result-monster-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* 1体分のカード */
+.result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffffcc;
+  padding: 10px 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px #00000030;
+  min-width: 100px;
+}
+
+/* モンスター画像 */
+.resultMonsterIcon {
+  width: 80px;
+  height: auto;
+  margin-bottom: 6px;
+}
+
+/* ×3 の表示 */
+.result-count {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 黒レア（Lv7,8,9） */
+.result-item.black-rare {
+  border: 3px solid #a56bff;
+  box-shadow: 0 0 12px #a56bff;
+}
+
+/* 虹レア（Lv10,11,12） */
+.result-item.rainbow-rare {
+  border: 3px solid transparent;
+  background: linear-gradient(#ffffffcc, #ffffffcc) padding-box,
+              linear-gradient(45deg, red, orange, yellow, green, blue, purple) border-box;
+  box-shadow: 0 0 12px #ffb6ff;
 }

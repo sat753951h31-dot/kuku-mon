@@ -81,6 +81,10 @@ button {
   position: relative;
   overflow: hidden;
 }
+.game-screen img {
+  max-width: 100%;
+  height: auto;
+}
 
 /* 背景（薄く） */
 #gameScreen::before {

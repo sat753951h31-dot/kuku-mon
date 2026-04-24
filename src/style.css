@@ -1,67 +1,69 @@
+/* 全画面共通：スマホ基準 */
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #8fd3f4, #84fab0);
   font-family: "Noto Sans JP", sans-serif;
-  height: 100dvh; 
+  height: 100dvh;
   overflow: hidden;
+  background: #f7faff;
 }
 
+/* ------------------------------
+   START SCREEN
+------------------------------ */
 #startScreen {
   width: 100%;
   height: 100dvh;
-  background-image: url("/background/start_bg.png");
-  background-size: cover; 
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 0; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+
+  background-image: url("/background/start_bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: 20px 0;
 }
 
 #gameTitle {
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 700;
   color: #ff7f50;
   text-shadow: 3px 3px 0 #fff, 5px 5px 0 #ffb6a1;
-  font-family: 'Noto Sans JP', sans-serif;
-  margin-top: 20px;
+  margin: 0;
 }
 
 #difficultySelect {
   display: flex;
-  gap: 20px;
-  margin-top: 20px;
+  gap: 16px;
 }
 
 .difficulty {
-  font-size: 20px;
-  padding: 10px 20px;
+  font-size: 18px;
+  padding: 10px 18px;
   border-radius: 10px;
   border: none;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  cursor: pointer;
-  transition: transform 0.2s;
 }
 
-.difficulty:hover {
-  transform: scale(1.1);
-}
-
+/* スタートボタン */
 #startBtn {
-  font-size: 24px;
-  padding: 12px 30px;
+  font-size: 22px;
+  padding: 12px 28px;
   border-radius: 12px;
   border: none;
   background-color: #ff7f50;
   color: white;
+  margin-bottom: 20px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  cursor: pointer;
-  margin-bottom: 40px;
 }
 
+/* ------------------------------
+   GAME SCREEN
+------------------------------ */
 #gameScreen {
   width: 100%;
   height: 100dvh;
@@ -69,7 +71,7 @@ body {
   overflow: hidden;
 }
 
-/* 背景だけ薄く敷く */
+/* 背景（薄く） */
 #gameScreen::before {
   content: "";
   position: absolute;
@@ -81,75 +83,41 @@ body {
   z-index: 1;
 }
 
-/* UI を中央に固定するコンテナ */
+/* UI本体（スマホで中央に広がる） */
 #gameUI {
+  position: relative;
+  z-index: 2;
+
   width: 100%;
+  height: 100%;
   padding: 20px;
+
   display: flex;
   flex-direction: column;
+  justify-content: center; /* ← 上寄せ防止 */
   align-items: center;
 }
 
-/* UI は上に重ねる */
-#gameScreen > * {
-  position: relative;
-  z-index: 2;
-}
-
-.easy { color: #2ecc71; }
-.normal { color: #3498db; }
-.hard { color: #e74c3c; }
-
-/* レア演出のポップアップ */
-#rareEffect {
-  display: none;
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px #00000030;
-  font-size: 20px;
-  font-weight: bold;
-  z-index: 999;
-  animation: rarePop 0.3s ease-out;
-}
-
-/* フェード＋ポップアニメーション */
-@keyframes rarePop {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -10px) scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1);
-  }
-}
-
-/* モンスターと吹き出しを横並びにする */
+/* モンスター＋吹き出し */
 #monsterWithBubble {
   display: flex;
   align-items: center;
-  gap: 16px; /* ← モンスターと吹き出しの間隔 */
-  margin-top: 20px;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
-/* 吹き出し本体 */
+/* 吹き出し */
 #speechBubble {
-  position: relative;
   background: #ffffff;
   border-radius: 12px;
   padding: 16px 20px;
   box-shadow: 0 4px 10px #00000030;
-  max-width: 60%;
-  font-size: 28px;
+  max-width: 70%;
+  font-size: 26px;
   font-weight: bold;
+  position: relative;
 }
 
-/* 吹き出しの三角（左向き） */
 #speechBubble::before {
   content: "";
   position: absolute;
@@ -160,26 +128,7 @@ body {
   border-color: transparent #ffffff transparent transparent;
 }
 
-/* アニメーション */
-.pop {
-  animation: pop 0.25s ease-out;
-}
-
-@keyframes pop {
-  0% { transform: scale(0.6); opacity: 0; }
-  80% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); }
-}
-
-/* 正解・不正解で色変更 */
-.correctBubble {
-  background: #d4f8d4;
-}
-
-.wrongBubble {
-  background: #ffd4d4;
-}
-
+/* 入力欄 */
 #answerInput {
   width: 80%;
   padding: 10px;
@@ -190,206 +139,40 @@ body {
   margin-bottom: 10px;
 }
 
-button {
-  padding: 12px 20px;
-  font-size: 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin: 5px;
-}
-
-#answerBtn {
-  background: #4caf50;
-  color: white;
-}
-
-#result {
-  font-size: 28px;
-  font-weight: bold;
-  height: 40px;
-  margin-top: 10px;
-  text-align: center;
-}
-
-.correct {
-  color: #28a745;
-  animation: pop 0.2s ease-out;
-}
-
-.wrong {
-  color: #dc3545;
-  animation: shake 0.3s ease-out;
-}
-
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  50% { transform: translateX(6px); }
-  75% { transform: translateX(-6px); }
-  100% { transform: translateX(0); }
-}
-
-#score, #timer {
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-#keypad {
-  margin-top: 20px;
-}
-
-#keypad .row {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-#keypad .key {
-  width: 70px;
-  height: 70px;
-  margin: 5px;
-  font-size: 28px;
-  border-radius: 15px;
-  border: none;
-  background: #ffffff;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  cursor: pointer;
-}
-
-#keypad .key:active {
-  transform: scale(0.9);
-}
-
-#keypad .enter {
-  background: #4caf50;
-  color: white;
-}
-
-#keypad .del {
-  background: #ff6666;
-  color: white;
-}
-
-#hpBarContainer {
-  width: 100%;
-  height: 20px;
-  background: #ddd;
-  border-radius: 10px;
-  margin-top: 10px;
-  overflow: hidden;
-}
-
-#hpBar {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, #ff6666, #ff0000);
-  transition: width 0.3s ease;
-}
-
-#monsterCanvas {
-  width: 300px;
-  height: 300px;
-  display: block;
-  margin: 0 auto;
-}
-
-#monsterImg {
-  width: 150px;
-  display: block;
-  margin: 0 auto;
-}
-
+/* ------------------------------
+   RESULT SCREEN
+------------------------------ */
 #resultScreen {
   width: 100%;
   height: 100dvh;
-  position: relative;
+  display: flex;
+  flex-direction: column; /* ← 横並び防止 */
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-}
 
-/* 背景だけ薄く敷く */
-#resultScreen::before {
-  content: "";
-  position: absolute;
-  inset: 0;
   background-image: url("/background/start_bg.png");
   background-size: cover;
   background-position: center;
-  opacity: 0.15;
-  z-index: 1;
-}
-
-/* UI を背景より前に出す（これが必要） */
-#resultScreen > * {
-  position: relative;
-  z-index: 3; /* 背景より前に固定 */
 }
 
 #resultTitle {
-  font-size: 40px;
+  font-size: 36px;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
-#resultDetail {
+#resultList {
   font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-#retryBtn, #backToTitleBtn {
-  font-size: 20px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  background-color: #ff7f50;
-  color: white;
-  cursor: pointer;
-}
-
-/* リザルト画面のモンスター一覧 */
-.result-monster-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
-}
-
-/* 1体分のカード */
-.result-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #ffffffcc;
-  padding: 10px 14px;
+#restartBtn {
+  font-size: 22px;
+  padding: 12px 28px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px #00000030;
-  min-width: 100px;
+  background: #ff7f50;
+  color: white;
+  border: none;
 }
-
-/* モンスター画像 */
-.resultMonsterIcon {
-  width: 80px;
-  height: auto;
-  margin-bottom: 6px;
-}
-
-/* ×3 の表示 */
-.result-count {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* 黒レア（Lv7,8,9） */
-.result-item.black-rare {
-  border: 3px solid #a56bff;
-  box-shadow: 0 0 12px #a56bff;
-}
-
-/* 虹レア（Lv10,11,12） */
-.result-item.rainbow-rare {
-  border: 3px solid transparent;
-  background: linear-gradient(#ffffffcc, #ffffffcc) padding-box,
-              linear-gradient(45deg, red, orange, yellow, green, blue, purple) border-box;
-  box-shadow: 0 0 12px #ffb6ff;
-}
-

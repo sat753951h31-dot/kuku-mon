@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  // GitHubのリポジトリ名を指定（例: '/my-app/'）
-  base: '/kuku-mon/', 
+  // GitHub Pagesで公開するときは有効化、vercelを使う場合は無効化する
+  //base: '/kuku-mon/', 
 })

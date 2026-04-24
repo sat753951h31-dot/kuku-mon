@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="/src/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   <title>九九モン</title>
@@ -20,7 +21,8 @@
 </div>
 
 
-<div id="gameScreen" style="display:none;">
+<div id="gameScreen" style="display:none; position:relative;">
+  <div id="rareEffect"></div>
   <div id="gameUI">
     <div id="timer" style="margin-top: 10px;"></div>
     <div id="hpBarContainer">
@@ -60,21 +62,6 @@
       </div>
     </div>
   </div>
-  <div id="rareEffect" style="
-    display:none;
-    position:absolute;
-    top:20px;
-    left:50%;
-    transform:translateX(-50%);
-    background:#fff;
-    padding:10px 20px;
-    border-radius:10px;
-    box-shadow:0 4px 10px #00000030;
-    font-size:20px;
-    font-weight:bold;
-    z-index:999;
-  "></div>
-
 </div>
 <div id="resultScreen" style="display:none;">
   <h2 id="resultTitle">結果</h2>

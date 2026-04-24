@@ -248,8 +248,8 @@ button {
 
 #keypad {
   width: 100%;
-  max-width: 400px;
-  margin: 20px auto 0;
+  max-width: 320px;
+  margin: 10px auto 0;
 }
 
 #keypad .row {
@@ -261,10 +261,10 @@ button {
 
 #keypad .key {
   flex: 1;                 
-  aspect-ratio: 1 / 1;     
+  height:60px;
   margin: 4px;
-  font-size: 32px;        
-  border-radius: 16px;
+  font-size: 24px;        
+  border-radius: 12px;
   border: none;
   background: #ffffff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);

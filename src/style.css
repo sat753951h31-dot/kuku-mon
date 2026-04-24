@@ -3,12 +3,8 @@ body {
   padding: 0;
   background: linear-gradient(135deg, #8fd3f4, #84fab0);
   font-family: "Noto Sans JP", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-}
+  height: 100dvh;
+  overflow
 
 @media (max-width: 600px) {
   #gameTitle {
@@ -46,20 +42,16 @@ body {
 }
 
 #startScreen {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 100dvh;
-
-  background-image: url("/background/start_bg.png");
-  background-size: cover;
+  background-image: url("/background/start_bg_vertical.png");
+  background-size: cover; 
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #f7faff;
-  padding: 40px 0;
-}
+  padding: 0; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
 #gameTitle {
   font-size: 48px;
@@ -104,8 +96,8 @@ body {
 }
 
 #gameScreen {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100dvh;
   position: relative;
   overflow: hidden;
 }
@@ -124,19 +116,11 @@ body {
 
 /* UI を中央に固定するコンテナ */
 #gameUI {
-  position: relative;
-  z-index: 2;
-
   width: 100%;
-  max-width: 480px;   /* ★スマホでもPCでも中央にまとまる */
-  margin: 0 auto;     /* ★中央寄せ */
   padding: 20px;
-
   display: flex;
   flex-direction: column;
-  align-items: center; /* ★横方向の中央揃え */
-  justify-content: center;
-  height: 100%;
+  align-items: center;
 }
 
 /* UI は上に重ねる */
@@ -350,19 +334,10 @@ button {
 }
 
 #resultScreen {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100dvh;
   position: relative;
   overflow: hidden;
-
-  text-align: center;
-  gap: 20px;
-  z-index: 2;
 }
 
 /* 背景だけ薄く敷く */

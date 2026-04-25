@@ -68,7 +68,12 @@ function startGame() {
   gameStarted = true;
 
   updateMonsterImage();
-  timeLeft = 60;
+  
+  if (Logic.state.difficulty === "easy") {
+    timeLeft = 120;
+  } else {
+    timeLeft = 60;
+  }
 
   nextQuestion();
   renderQuestion();
@@ -327,6 +332,6 @@ window.addEventListener("DOMContentLoaded", () => {
   const normalBtn = document.querySelector('[data-mode="easy"]');
   normalBtn.style.backgroundColor = "#ffb6a1"; // 選択中カラー
   
-  const mulBtn = document.querySelector('.modeBtn[data-mode="mul"]');
+  const mulBtn = document.querySelector('.modeBtn[data-mode="add"]');
   mulBtn.classList.add("active");
 });

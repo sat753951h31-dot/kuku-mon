@@ -5,7 +5,6 @@ let currentQuestion;
 let timeLeft = 60;
 let timerId = null;
 let gameStarted = false;
-let difficulty = "normal"; // デフォルトはふつう
 
 // UI 要素取得
 const startBtn = document.getElementById("startBtn");
@@ -23,9 +22,9 @@ const backToTitleBtn = document.getElementById("backToTitleBtn");
 // UI に問題を表示
 function renderQuestion() {
   const q = document.getElementById("questionText");
-  q.textContent = `${currentQuestion.a} × ${currentQuestion.b} は？`;
+  q.textContent = `${currentQuestion.a} ${currentQuestion.op} ${currentQuestion.b} は？`;
 
-  q.className = difficulty;
+  q.className = Logic.state.difficulty;
 
   const bubble = document.getElementById("speechBubble");
   bubble.classList.remove("correctBubble", "wrongBubble", "pop");
@@ -109,8 +108,8 @@ function submitAnswer() {
   if (isCorrect) {
     let damage = 10; // デフォルト（ふつう）debug中は１００にする
 
-    if (difficulty === "easy") damage = 15;
-    if (difficulty === "hard") damage = 5;
+    if (Logic.state.difficulty === "easy") damage = 15;
+    if (Logic.state.difficulty === "hard") damage = 5;
 
     Logic.damageMonster(damage);
     resultEl.textContent = "⭕ 正解！";
@@ -142,7 +141,7 @@ function submitAnswer() {
     }
 
   } else {
-    resultEl.textContent = `❌ 不正解…（${currentQuestion.a} × ${currentQuestion.b} = ${currentQuestion.answer}）`;
+    resultEl.textContent = `❌ 不正解…（${currentQuestion.a} ${currentQuestion.op} ${currentQuestion.b} = ${currentQuestion.answer}）`;
     resultEl.className = "wrong";
     const bubble = document.getElementById("speechBubble");
     bubble.classList.remove("correctBubble");
@@ -245,9 +244,19 @@ function showResultScreen() {
 // 難易度選択
 document.querySelectorAll(".difficulty").forEach(btn => {
   btn.addEventListener("click", () => {
-    difficulty = btn.dataset.mode;
+    Logic.state.difficulty = btn.dataset.mode;
     document.querySelectorAll(".difficulty").forEach(b => b.style.backgroundColor = "#fff");
     btn.style.backgroundColor = "#ffb6a1"; // 選択中を強調
+  });
+});
+
+//モード選択
+document.querySelectorAll(".modeBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    Logic.state.mode = btn.dataset.mode;
+
+    document.querySelectorAll(".modeBtn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
   });
 });
 
@@ -315,6 +324,9 @@ function endGame(isClear = false) {
 
 //初期設定
 window.addEventListener("DOMContentLoaded", () => {
-  const normalBtn = document.querySelector('[data-mode="normal"]');
+  const normalBtn = document.querySelector('[data-mode="easy"]');
   normalBtn.style.backgroundColor = "#ffb6a1"; // 選択中カラー
+  
+  const mulBtn = document.querySelector('.modeBtn[data-mode="mul"]');
+  mulBtn.classList.add("active");
 });

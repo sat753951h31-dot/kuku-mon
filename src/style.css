@@ -71,6 +71,27 @@ button {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+#modeSelect {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.modeBtn {
+  font-size: 18px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.modeBtn.active {
+  background-color: #ffb6a1;
+}
+
 /* スタートボタン */
 #startBtn {
   font-size: 22px;

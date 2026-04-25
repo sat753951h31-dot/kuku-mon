@@ -6,7 +6,7 @@ export const state = {
   totalMonsters: 3,  // ★全体数
   currentMonsterImage: "",
   difficulty: "easy",
-  mode: "mul",
+  mode: "add",
 };
 
 export function generateQuestion() {

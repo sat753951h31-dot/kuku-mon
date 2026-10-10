@@ -33,21 +33,25 @@ button {
 ------------------------------ */
 #startScreen {
   width: 100%;
-  min-height: 100vh;        /* ← 100dvh は使わない */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 100vh;          /* ← min-height ではなく height にする */
+  overflow-y: auto;       /* ← スクロールはここで管理 */
 
-  /* ★ 中央寄せを維持しつつ、画面が小さい端末ではスクロール */
-  justify-content: center;
-  padding: 20px 0;
-
-  overflow-y: auto;         /* ← スクロール可能にする */
-
-  background-image: url("/background/start_bg.png");
+  background-image: url("../background/start_bg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  padding: 0;             /* ← 余白は子側で管理する */
+}
+
+.startInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* ← 中央寄せはここで */
+  min-height: 100%;        /* ← 親の高さに合わせる */
+
+  padding: 40px 0;         /* ← スタートボタンが切れないように余白 */
 }
 
 #gameTitle {

@@ -33,18 +33,20 @@ button {
 ------------------------------ */
 #startScreen {
   width: 100%;
-  height: 100dvh;
+  min-height: 100vh;        /* ← 100dvh をやめる */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;  /* ← 中央固定をやめる */
   align-items: center;
 
-  background-image: url("/background/start_bg.png");
+  background-image: url("background/start_bg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
   padding: 20px 0;
+
+  overflow-y: auto;         /* ★ これで画面が小さい端末でもスクロールできる */
 }
 
 #gameTitle {

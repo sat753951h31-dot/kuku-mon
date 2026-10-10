@@ -12,36 +12,28 @@ export const state = {
 export function generateQuestion() {
   const mode = state.mode;        // mul / add / sub
   const diff = state.difficulty;  // easy / normal / hard
+  const dan = state.dan || "all"; // ← UIから渡される段 ("1"〜"9" or "all")
 
   let a, b;
 
-  // ▼ 掛け算（今まで通り）
+  // ▼ 段の決定（all ならランダム）
+  const danValue = (dan === "all") ? Math.floor(Math.random() * 9) + 1 : Number(dan);
+
+  // ▼ 掛け算（段 × 1〜9）
   if (mode === "mul") {
-    a = Math.floor(Math.random() * 9) + 1;
+    a = danValue;
     b = Math.floor(Math.random() * 9) + 1;
     return { a, b, answer: a * b, op: "×" };
   }
 
   // ▼ 足し算・引き算の桁数設定
-  let maxA = 9, maxB = 9;
+  let maxB = 9;
 
-  if (diff === "easy") {
-    maxA = 9;   // 1桁
-    maxB = 9;   // 1桁
-  }
+  if (diff === "normal") maxB = 99;  // 2桁
+  if (diff === "hard")   maxB = 99;  // 2桁
 
-  if (diff === "normal") {
-    maxA = 99;  // 2桁
-    maxB = 9;   // 1桁
-  }
-
-  if (diff === "hard") {
-    maxA = 99;  // 2桁
-    maxB = 99;  // 2桁
-  }
-
-  // ▼ 数字生成
-  a = Math.floor(Math.random() * maxA) + 1;
+  // ▼ a は段、b は難易度に応じて変化
+  a = danValue;
   b = Math.floor(Math.random() * maxB) + 1;
 
   // ▼ 足し算
@@ -56,6 +48,7 @@ export function generateQuestion() {
     return { a: x, b: y, answer: x - y, op: "-" };
   }
 }
+
 
 export function checkAnswer(question, userInput) {
   return Number(userInput) === question.answer;

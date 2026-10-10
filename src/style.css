@@ -453,3 +453,55 @@ button {
               linear-gradient(45deg, red, orange, yellow, green, blue, purple) border-box;
   box-shadow: 0 0 12px #ffb6ff;
 }
+
+.danTitle {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* ▼ グリッド背景は透過のまま */
+#danSelect {
+  margin-top: 16px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ▼ グリッドの余白を少し広げる */
+.dan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;               /* ← ボタン間の余白を広げる */
+  padding: 0 20px;         /* ← 左右に余白を追加して見やすく */
+}
+
+/* ▼ ボタンを太くする */
+.danBtn {
+  font-size: 22px;         /* ← 少し大きめに戻す */
+  padding: 18px 0;         /* ← 縦の太さを増やす */
+  min-width: 80px;         /* ← 横幅の最低値を設定（太くなる） */
+  border-radius: 12px;
+  background-color: rgba(255,255,255,0.5);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.danBtn:active {
+  transform: scale(0.9);
+}
+
+/* ▼ 全部ボタンも太くする */
+.dan-all {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.dan-all .danBtn {
+  width: 60%;              /* ← 太めの幅にする */
+  min-width: 120px;        /* ← 最低幅をさらに確保 */
+}

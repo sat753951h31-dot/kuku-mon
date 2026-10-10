@@ -265,8 +265,22 @@ document.querySelectorAll(".modeBtn").forEach(btn => {
   });
 });
 
+let dan = 1; // デフォルトは1段
+
+document.querySelectorAll(".danBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    dan = btn.dataset.dan; // "1"〜"9" or "all"
+
+    // 見た目のハイライト
+    document.querySelectorAll(".danBtn").forEach(b => b.style.backgroundColor = "#fff");
+    btn.style.backgroundColor = "#ffb6a1";
+  });
+});
+
 // スタートボタン
 startBtn.addEventListener("click", () => {
+  Logic.state.dan = dan;
+  
   startScreen.style.display = "none";
   gameScreen.style.display = "block";
   startGame();
@@ -332,6 +346,6 @@ window.addEventListener("DOMContentLoaded", () => {
   const normalBtn = document.querySelector('[data-mode="easy"]');
   normalBtn.style.backgroundColor = "#ffb6a1"; // 選択中カラー
   
-  const mulBtn = document.querySelector('.modeBtn[data-mode="add"]');
+  const mulBtn = document.querySelector('.modeBtn[data-mode="mul"]');
   mulBtn.classList.add("active");
 });

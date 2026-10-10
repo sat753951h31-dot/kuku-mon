@@ -7,6 +7,9 @@ export const state = {
   currentMonsterImage: "",
   difficulty: "easy",
   mode: "mul",
+  playerLevel: 1,
+  playerExp: 0,
+  nextExp: 50, // レベル1→2に必要な経験値
 };
 
 export function generateQuestion() {
@@ -62,4 +65,36 @@ export function updateScore(isCorrect) {
 export function damageMonster(amount = 5) {
   state.monsterHp -= amount;
   if (state.monsterHp < 0) state.monsterHp = 0;
+}
+
+export function addExp(isClear) {
+  let base = 5;
+  if (state.difficulty === "normal") base = 10;
+  if (state.difficulty === "hard") base = 15;
+
+  const gained = state.defeatedCount * base;
+
+  let bonus = 0;
+  if (isClear) bonus = 10;
+
+  const total = gained + bonus;
+
+  state.playerExp += total;
+
+  // レベルアップ判定
+  while (state.playerExp >= state.nextExp) {
+    state.playerExp -= state.nextExp;
+    state.playerLevel++;
+    state.nextExp = Math.floor(state.nextExp * 1.4); // 必要経験値を増やす
+    state.leveledUp = true;
+  }
+
+  // 保存
+  localStorage.setItem("kukuPlayer", JSON.stringify({
+    level: state.playerLevel,
+    exp: state.playerExp,
+    nextExp: state.nextExp
+  }));
+
+  return { gained, bonus, total };
 }

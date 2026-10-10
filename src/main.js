@@ -115,6 +115,8 @@ function submitAnswer() {
 
     if (Logic.state.difficulty === "easy") damage = 15;
     if (Logic.state.difficulty === "hard") damage = 5;
+    
+    damage += Logic.state.playerLevel;
 
     Logic.damageMonster(damage);
     resultEl.textContent = "⭕ 正解！";
@@ -141,7 +143,7 @@ function submitAnswer() {
       // 次のモンスター画像を読み込む
       updateMonsterImage();
 
-      resultEl.textContent = "🎉 敵を倒した！レベルアップ！";
+      resultEl.textContent = "🎉 敵を倒した！新しい敵がでてきた！";
       renderStatus();
     }
 
@@ -173,9 +175,11 @@ function updateMonsterImage() {
   const rand = Math.random();
   let variantIndex = 0; // 0:通常, 1:色違い, 2:黒, 3:虹
 
-  if (rand < 0.15) variantIndex = 1; // 15% 色違い
-  else if (rand < 0.18) variantIndex = 2; // 3% 黒レア
-  else if (rand < 0.19) variantIndex = 3; // 1% 虹レア
+  const levelBonus = Logic.state.playerLevel * 0.005; // レベル1で0.2%上昇
+
+  if (rand < 0.15 + levelBonus) variantIndex = 1; // 色違い
+  else if (rand < 0.18 + levelBonus) variantIndex = 2; // 黒レア
+  else if (rand < 0.19 + levelBonus) variantIndex = 3; // 虹レア
 
   // レベルサイクル（1〜3）
   const baseLevel = ((level - 1) % 3) + 1;
@@ -281,22 +285,28 @@ document.querySelectorAll(".danBtn").forEach(btn => {
 startBtn.addEventListener("click", () => {
   Logic.state.dan = dan;
   
-  startScreen.style.display = "none";
-  gameScreen.style.display = "block";
+  startScreen.classList.add("hidden");
+  gameScreen.classList.remove("hidden");
   startGame();
 });
 
 // リトライボタン
 retryBtn.addEventListener("click", () => {
-  resultScreen.style.display = "none";
-  gameScreen.style.display = "block";
+  resultScreen.classList.add("hidden");
+  gameScreen.classList.remove("hidden");
   startGame();
 });
 
 // 戻るボタン
 backToTitleBtn.addEventListener("click", () => {
-  resultScreen.style.display = "none";
-  startScreen.style.display = "flex";
+  resultScreen.classList.add("hidden");
+  gameScreen.classList.add("hidden");
+
+  startScreen.classList.remove("hidden");
+  
+  // 最新レベルを表示する
+  const levelDisplay = document.getElementById("playerLevelDisplay");
+  levelDisplay.textContent = `現在のレベル：${Logic.state.playerLevel}`;
 });
 
 // テンキー入力
@@ -324,27 +334,53 @@ function endGame(isClear = false) {
   clearInterval(timerId);
   timerId = null;
 
-  // ゲーム画面を隠す
-  gameScreen.style.display = "none";
+  gameScreen.classList.add("hidden");
+  resultScreen.classList.remove("hidden");
 
-  // リザルト画面を表示
-  resultScreen.style.display = "flex";
+  const expResult = Logic.addExp(isClear);
 
   if (isClear) {
     resultTitle.textContent = "🏆 ゲームクリア！";
-    resultDetail.textContent = `全モンスター討伐完了！`;
+    resultDetail.innerHTML =
+      `全モンスター討伐完了！<br>
+       けいけんち：${expResult.gained}（討伐） + ${expResult.bonus}（ボーナス）<br>
+       合計：${expResult.total}`;
   } else {
     resultTitle.textContent = "⌛ 時間切れ！";
-    resultDetail.textContent = `${Logic.state.defeatedCount}/${Logic.state.totalMonsters} 討伐完了`;
+    resultDetail.innerHTML =
+      `${Logic.state.defeatedCount}/${Logic.state.totalMonsters} 討伐完了<br>
+       けいけんち：${expResult.gained}<br>
+       合計：${expResult.total}`;
   }
-  
+
+  if (Logic.state.leveledUp) {
+    resultDetail.innerHTML += `<br><br>🎉 レベルアップしました！`;
+  }
+
+  resultDetail.innerHTML += `
+      <br><br>現在レベル：${Logic.state.playerLevel}
+      <br>現在経験値：${Logic.state.playerExp} / ${Logic.state.nextExp}
+  `;
+
   showResultScreen();
 }
 
 //初期設定
 window.addEventListener("DOMContentLoaded", () => {
+  const saved = JSON.parse(localStorage.getItem("kukuPlayer"));
+  if (saved) {
+    Logic.state.playerLevel = saved.level;
+    Logic.state.playerExp = saved.exp;
+    Logic.state.nextExp = saved.nextExp;
+  }
+
+  // スタート画面にレベルを表示
+  const levelDisplay = document.getElementById("playerLevelDisplay");
+  levelDisplay.textContent = `現在のレベル：${Logic.state.playerLevel}`;
+  
+  // 既存の初期選択
   const normalBtn = document.querySelector('[data-mode="easy"]');
-  normalBtn.style.backgroundColor = "#ffb6a1"; // 選択中カラー
+  normalBtn.style.backgroundColor = "#ffb6a1";
   
   const mulBtn = document.querySelector('.modeBtn[data-mode="mul"]');
   mulBtn.classList.add("active");

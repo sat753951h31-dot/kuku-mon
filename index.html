@@ -12,7 +12,7 @@
 <div id="startScreen">
 <div class="startInner">
   <h1 id="gameTitle">九九モン</h1>
-
+  <p id="playerLevelDisplay" class="playerLevelDisplay"></p>
   <div id="difficultySelect">
     <button class="difficulty" data-mode="easy">やさしい</button>
     <button class="difficulty" data-mode="normal">ふつう</button>
@@ -51,7 +51,7 @@
 </div>
 
 
-<div id="gameScreen" style="display:none;">
+<div id="gameScreen">
   <div id="rareEffect"></div>
   <div id="gameUI">
     <div id="timer" style="margin-top: 10px;"></div>
@@ -93,7 +93,7 @@
     </div>
   </div>
 </div>
-<div id="resultScreen" style="display:none;">
+<div id="resultScreen">
   <div id="resultBoard">
     <h2 id="resultTitle">結果</h2>
     <p id="resultDetail"></p>
